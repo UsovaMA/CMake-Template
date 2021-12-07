@@ -71,7 +71,7 @@ public:
   List(DataType* arr, int size);
   void DeleteHead();
   void print(char* direction);
-
+  void DeleteTail();
 };
 
 #endif  // __LIST_H__
