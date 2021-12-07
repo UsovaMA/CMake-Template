@@ -143,3 +143,18 @@ void List::print(char* direction = "->") {    // найти другой способ фикса
   }
   std::cout << "NULL" << std::endl;                                        // (1)->(3)->(2)->NULL
 }
+
+void List::DeleteTail()
+{
+   
+    if (!isEmpty())
+    {
+        Node* tmp = head;
+        while (head -> next != nullptr)
+        {
+            head = head->next;
+        }
+        delete tmp;
+    }
+    
+}
