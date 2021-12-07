@@ -18,7 +18,7 @@ List::List() {
 
 
 List::~List() {
-  Node* tmp, *tmp1; // указатель-ходилка
+  Node* tmp, *tmp1; // СѓРєР°Р·Р°С‚РµР»СЊ-С…РѕРґРёР»РєР°
   tmp = head;
   tmp1 = tmp;
   while (tmp1 != nullptr)
@@ -34,7 +34,7 @@ void List::InsertToHead(const DataType& d)
 {
   if (isEmpty())
   {
-    head = new Node(d, nullptr); // это первый и единственный
+    head = new Node(d, nullptr); // СЌС‚Рѕ РїРµСЂРІС‹Р№ Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№
   }
   else
   {
@@ -46,18 +46,18 @@ void List::InsertToTail(const DataType& d)
 {
   if (isEmpty())
   {
-    head = new Node(d, nullptr); // это первый и единственный
+    head = new Node(d, nullptr); // СЌС‚Рѕ РїРµСЂРІС‹Р№ Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№
   }
   else
   {
     Node* p = new Node(d, nullptr);
-    Node* tmp; // указатель-ходилка
+    Node* tmp; // СѓРєР°Р·Р°С‚РµР»СЊ-С…РѕРґРёР»РєР°
     tmp = head;
     while (tmp->next != nullptr)
     {
       tmp = tmp->next;
     }
-    // в итоге - tmp - последний
+    // РІ РёС‚РѕРіРµ - tmp - РїРѕСЃР»РµРґРЅРёР№
     tmp->next = p;
   }
 }
@@ -78,19 +78,57 @@ void List::Clean()
   head = nullptr;
 }
 
+DataType& List::DeleteLast()
+{
+    int i = 1;
+    if (isEmpty())
+    {
+        cout << "Stack is Empty";
+        throw "Error";
+    }
+    else
+    {
+        Node* tmp; Node* tmp2;
+        tmp = head;
+        tmp2 = tmp->next;
+        if (head->next == nullptr)
+        {
+            head = head->next;
+            return tmp->data;
+        }
+        else
+        {
+            while (tmp->next != nullptr && i == 1)
+            {
+                if (tmp2->next != nullptr)
+                {
+                    tmp = tmp->next;
+                    tmp2 = tmp2->next;
+                }
+                else
+                    i = 0;
+            }
+            tmp2 = tmp->next;
+            tmp->next = nullptr;
+            return tmp2->data;
+        }
+    }
+
+}
+
 void List::Delete(const DataType& d)
 {
-  // найти значение
-  // найти того, кто перед ним
+  // РЅР°Р№С‚Рё Р·РЅР°С‡РµРЅРёРµ
+  // РЅР°Р№С‚Рё С‚РѕРіРѕ, РєС‚Рѕ РїРµСЂРµРґ РЅРёРј
   Node* prev = head;
   Node* tmp;
   bool find = false;
 
-  // данные в голове
+  // РґР°РЅРЅС‹Рµ РІ РіРѕР»РѕРІРµ
   if (head->data == d)
   {
     head = head->next;
-    delete prev; // сейчас это голова
+    delete prev; // СЃРµР№С‡Р°СЃ СЌС‚Рѕ РіРѕР»РѕРІР°
     find = true;
   }
 
@@ -98,7 +136,7 @@ void List::Delete(const DataType& d)
   {
     if (prev->next->data == d)
     {
-      // prev->next - это звено
+      // prev->next - СЌС‚Рѕ Р·РІРµРЅРѕ
       tmp = prev->next;
       prev->next = prev->next->next; // tmp->next
       delete tmp;
@@ -113,11 +151,11 @@ void List::Delete(const DataType& d)
 List::List(DataType* arr, int size) {
   if (arr != nullptr) {
     head = new Node(arr[0], nullptr);
-    Node* tmp = head;                              // указатель на начало НИКОГДА не используем для движения по списку!!!!
+    Node* tmp = head;                              // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ РќРРљРћР“Р”Рђ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ РґРІРёР¶РµРЅРёСЏ РїРѕ СЃРїРёСЃРєСѓ!!!!
     for (int i = 1; i < size; i++) {
-      Node* elem = new Node(arr[i], nullptr);      // создаём звено
-      tmp->next = elem;                            // цепляем его
-      tmp = tmp->next;                             // сдвигаем временный указатель
+      Node* elem = new Node(arr[i], nullptr);      // СЃРѕР·РґР°С‘Рј Р·РІРµРЅРѕ
+      tmp->next = elem;                            // С†РµРїР»СЏРµРј РµРіРѕ
+      tmp = tmp->next;                             // СЃРґРІРёРіР°РµРј РІСЂРµРјРµРЅРЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ
     }
   } else {
     throw std::exception("Empty Input Data!");
@@ -132,14 +170,40 @@ void List::DeleteHead() {
   }
 }
 
-void List::print(char* direction = "->") {    // найти другой способ фикса
-  if (!isEmpty()) {
+int List::GetSize() 
+{
     Node* tmp = head;
-    while (tmp->next != nullptr) {
-      std::cout << "(" << tmp->data << ")" << direction;                   // (1)->(3)->(2)->
-      tmp = tmp->next;                                                     // сдвигаем временный указатель
-    } 
-    std::cout << "(" << tmp->data << ")" << direction;
-  }
-  std::cout << "NULL" << std::endl;                                        // (1)->(3)->(2)->NULL
+    int k = 0;
+    if (tmp == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        while (tmp != NULL)
+        {
+            k = k + 1;
+            tmp = tmp->next;
+        }
+        return k;
+    }
+};
+
+void List::seeLast()
+{
+    if (isEmpty())
+    {
+        cout << "Stack is Empty";
+        throw "Error";
+    }
+    else
+    {
+        Node* tmp; 
+        tmp = head;
+        while (tmp->next != nullptr)
+        {
+            tmp = tmp->next;
+        }
+        cout << "Last element: " << tmp->data << endl;
+    }
 }
