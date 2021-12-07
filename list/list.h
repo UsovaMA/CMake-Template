@@ -52,6 +52,10 @@ public:
 
   bool isEmpty() { return (head == nullptr); }
 
+  DataType& DeleteLast();
+
+  void seeLast();
+
   DataType ViewHead() { return head->data; }
 
   myiterator begin() { return myiterator(head); };
@@ -68,6 +72,8 @@ public:
   //bool operator==(const List& list2) const;          // списки равны, если элементы в них идут в одинаковом порядке
   //friend ostream& operator<<(ostream& os, const List& l);
 
+  int GetSize();
+  
   List(DataType* arr, int size);
   void DeleteHead();
   void print(char* direction);
