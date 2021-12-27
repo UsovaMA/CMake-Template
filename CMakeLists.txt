@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
-project(example_project)
+project(Arithmetic)
 
 include(cmake/function.cmake)
 
-add_subdirectory(lib_example)
+add_subdirectory(list)
+add_subdirectory(stackonlist)
+add_subdirectory(lib_arithmetic)
+
 add_subdirectory(main)
 
 option(BTEST "build test?" ON)

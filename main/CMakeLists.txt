@@ -1,1 +1,1 @@
-create_executable_project(Application)
+create_executable_project(main)

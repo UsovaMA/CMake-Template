@@ -1,1 +1,1 @@
-create_executable_project(AllTests)
+create_executable_project(Tests)
